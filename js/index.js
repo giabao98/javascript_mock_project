@@ -12,16 +12,16 @@ closeListMap.addEventListener("click", () => {
 
 const callApiFunction = (link) => {
   fetch(link)
-  .then((res) => {
-    return res.json();
-  })
-  .then((data) => {
-    var products = document.querySelector(".container_products");
-    products.innerHTML = "";
-    data.forEach((item) => {
-      var newProduct = document.createElement("div");
-      newProduct.classList.add("product_item");
-      newProduct.innerHTML = `
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      var products = document.querySelector(".container_products");
+      products.innerHTML = "";
+      data.forEach((item) => {
+        var newProduct = document.createElement("div");
+        newProduct.classList.add("product_item");
+        newProduct.innerHTML = `
       <a href='detail.html#${item.id}' class='link_item'> 
       <div class="product_item-img" id="${item.id}">
       <img src=${item.image} alt="abc" />
@@ -54,33 +54,31 @@ const callApiFunction = (link) => {
       </div>
       </a>
     `;
-      products.appendChild(newProduct);
+        products.appendChild(newProduct);
+      });
     });
-  })
-}
+};
 
-
-
-var mockData = callApiFunction("https://utc2ranking.azurewebsites.net/api/Product")
+var mockData = callApiFunction(
+  "https://utc2ranking.azurewebsites.net/api/Product"
+);
 
 var searchInput = document.querySelector(".navbar_input input");
 searchInput.addEventListener("input", function (e) {
   let txtSearch = e.target.value.trim().toLowerCase();
-  callApiFunction(`https://utc2ranking.azurewebsites.net/api/Product/Search?keysearch=${txtSearch}`)
+  callApiFunction(
+    `https://utc2ranking.azurewebsites.net/api/Product/Search?keysearch=${txtSearch}`
+  );
 });
 
 function changeProductList(type, element) {
-  let tabs = document.getElementsByClassName("tab") 
-  for(i = 0 ; i < tabs.length; i++) {
-    tabs[i].style.backgroundColor = '#fff'
+  let tabs = document.getElementsByClassName("tab");
+  for (i = 0; i < tabs.length; i++) {
+    tabs[i].style.backgroundColor = "#fff";
   }
-  element.style.backgroundColor = '#ebf2ff'
+  element.style.backgroundColor = "#ebf2ff";
 
-   callApiFunction(`https://utc2ranking.azurewebsites.net/api/Product/Category?category=${type}`)
+  callApiFunction(
+    `https://utc2ranking.azurewebsites.net/api/Product/Category?category=${type}`
+  );
 }
-
-
-
-
-
-
